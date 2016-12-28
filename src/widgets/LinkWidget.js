@@ -123,11 +123,6 @@ module.exports = React.createClass({
                 onMouseDown: function (event) {
                     var point = this.props.engine.getRelativeMousePoint(event);
                     point.id = this.props.engine.UID();
-                    // if (this.props.engine.singlePointer) {
-                    //     this.props.link.points = [point];
-                    // } else {
-                    //     this.props.link.points.splice(1, 0, point);
-                    // }
                     this.props.link.points.splice(1, 0, point);
                     this.forceUpdate();
                     this.props.newPoint(point.id);
@@ -163,7 +158,12 @@ module.exports = React.createClass({
                     onMouseDown: function (event) {
                         var point = this.props.engine.getRelativeMousePoint(event);
                         point.id = this.props.engine.UID();
-                        this.props.link.points.splice(index + 1, 0, point);
+                        if (this.props.engine.singlePointer) {
+                            this.props.link.points[1] = point;
+                        } else {
+                            this.props.link.points.splice(index + 1, 0, point);
+                        }
+                        // this.props.link.points.splice(index + 1, 0, point);
                         this.forceUpdate();
                         this.props.newPoint(point.id);
                     }.bind(this),
