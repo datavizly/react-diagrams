@@ -229,11 +229,10 @@ module.exports = function (config) {
         },
 
         getExistLinkBySourceAndTarget: function (id, source, target) {
-            console.log('111');
             let link = null;
             Object.keys(this.state.links).map((key) => {
                 let _link = this.state.links[key];
-                if ((_link.source === source && _link.target == target) || (_link.source === target && _link.target == source)) {
+                if ((id != _link.id) && ((_link.source === source && _link.target == target) || (_link.source === target && _link.target == source))) {
                     link = _link;
                 }
             });

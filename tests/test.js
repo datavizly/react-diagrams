@@ -138,5 +138,5 @@ window.onload = function () {
     Engine.loadModel(model);
 
 
-    ReactDOM.render(React.createElement(Canvas, {engine: Engine}), document.body);
+    ReactDOM.render(React.createElement(Canvas, {engine: Engine}), document.getElementById('eid'));
 };

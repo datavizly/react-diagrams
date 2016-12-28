@@ -48,7 +48,7 @@ module.exports = React.createClass({
                 className: 'point pointui',
                 cx: this.getPoint(pointIndex).x,
                 cy: this.getPoint(pointIndex).y,
-                r: 5,
+                r: 5
             }),
             React.DOM.circle({
                 className: 'point',

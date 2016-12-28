@@ -197,6 +197,7 @@ module.exports = React.createClass({
                                         this.state.selectedLink.targetPort = element.dataset.name;
 
                                         //两个 node 之间只允许一个link
+                                        console.log(111);
                                         if (this.props.engine.singleLink) {
                                             let link = this.props.engine.getExistLinkBySourceAndTarget(this.state.selectedLink.id, this.state.selectedLink.source, this.state.selectedLink.target);
                                             if (link && link.id != this.state.selectedLink.id) {
