@@ -8,7 +8,7 @@ window.onload = function () {
 
     console.log(111);
 
-    var Engine = require("../src/Engine")({zoomOnWheel: false});
+    var Engine = require("../src/Engine")({zoomOnWheel: false, singleLink: true});
 
     var model = {links: [], nodes: []};
 

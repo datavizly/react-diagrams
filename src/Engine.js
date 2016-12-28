@@ -228,6 +228,18 @@ module.exports = function (config) {
             return this.state.links[id];
         },
 
+        getExistLinkBySourceAndTarget: function (id, source, target) {
+            console.log('111');
+            let link = null;
+            Object.keys(this.state.links).map((key) => {
+                let _link = this.state.links[key];
+                if ((_link.source === source && _link.target == target) || (_link.source === target && _link.target == source)) {
+                    link = _link;
+                }
+            });
+            return link;
+        },
+
         getNode: function (id) {
             return this.state.nodes[id];
         },
@@ -253,6 +265,6 @@ module.exports = function (config) {
         }
     };
 
-    engine = Object.assign(config, engine);
+    engine = Object.assign(engine, config);
     return engine;
 };

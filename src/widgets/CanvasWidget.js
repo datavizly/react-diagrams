@@ -195,7 +195,18 @@ module.exports = React.createClass({
 
                                         this.state.selectedLink.target = nodeElement.dataset.nodeid;
                                         this.state.selectedLink.targetPort = element.dataset.name;
-                                        this.props.engine.repaintNodes([nodeObject]);
+
+                                        //两个 node 之间只允许一个link
+                                        if (this.props.engine.singleLink) {
+                                            let link = this.props.engine.getExistLinkBySourceAndTarget(this.state.selectedLink.id, this.state.selectedLink.source, this.state.selectedLink.target);
+                                            if (link) {
+                                                this.props.engine.removeLink(this.state.selectedLink);
+                                            } else {
+                                                this.props.engine.repaintNodes([nodeObject]);
+                                            }
+                                        } else {
+                                            this.props.engine.repaintNodes([nodeObject]);
+                                        }
                                     }
                                 }
                             }
