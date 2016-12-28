@@ -118,6 +118,11 @@ module.exports = React.createClass({
                 margin = 5;
             }
 
+            var ds = [];
+            for (var i = 0; i < points.length - 1; i++) {
+                ds.push(" M " + this.getPoint(i).x + " " + this.getPoint(i).y + " L " + this.getPoint(i + 1).x + " " + this.getPoint(i + 1).y);
+            }
+
             paths.push(this.generateLink({
                 id: '0',
                 onMouseDown: function (event) {
@@ -127,10 +132,11 @@ module.exports = React.createClass({
                     this.forceUpdate();
                     this.props.newPoint(point.id);
                 }.bind(this),
-                d: " M" + this.getPoint(0).x + " " + this.getPoint(0).y
-                + " C" + (this.getPoint(0).x + margin) + " " + this.getPoint(0).y
-                + " " + (this.getPoint(1).x - margin) + " " + this.getPoint(1).y
-                + " " + this.getPoint(1).x + " " + this.getPoint(1).y
+                // d: " M" + this.getPoint(0).x + " " + this.getPoint(0).y
+                // + " C" + (this.getPoint(0).x + margin) + " " + this.getPoint(0).y
+                // + " " + (this.getPoint(1).x - margin) + " " + this.getPoint(1).y
+                // + " " + this.getPoint(1).x + " " + this.getPoint(1).y
+                d: ds[0]
             }));
             if (this.props.link.target === null) {
                 paths.push(this.generatePoint(1));
