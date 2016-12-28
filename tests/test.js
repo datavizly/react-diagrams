@@ -6,9 +6,7 @@ require("./test.scss");
 
 window.onload = function () {
 
-    console.log(111);
-
-    var Engine = require("../src/Engine")({zoomOnWheel: false, singleLink: true});
+    var Engine = require("../src/Engine")({zoomOnWheel: false, singleLink: true, singlePointer: true});
 
     var model = {links: [], nodes: []};
 

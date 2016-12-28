@@ -199,7 +199,7 @@ module.exports = React.createClass({
                                         //两个 node 之间只允许一个link
                                         if (this.props.engine.singleLink) {
                                             let link = this.props.engine.getExistLinkBySourceAndTarget(this.state.selectedLink.id, this.state.selectedLink.source, this.state.selectedLink.target);
-                                            if (link) {
+                                            if (link && link.id != this.state.selectedLink.id) {
                                                 this.props.engine.removeLink(this.state.selectedLink);
                                             } else {
                                                 this.props.engine.repaintNodes([nodeObject]);
@@ -230,7 +230,6 @@ module.exports = React.createClass({
                             selectedPointID: pointID,
                             selectedLink: link
                         });
-                        ;
                     }.bind(this), engine: this.props.engine
                 }),
                 React.createElement(NodeView, {engine: this.props.engine})
