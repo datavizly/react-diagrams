@@ -14,7 +14,8 @@ window.onload = function () {
         singlePointer: true,
         nodeMovable: true,
         pointerMovable: false,
-        canvasMovable: false
+        canvasMovable: false,
+        isTableRelation: true
     });
 
     var model = {links: [], nodes: []};
@@ -35,20 +36,23 @@ window.onload = function () {
                 sourcePort: 'in',
                 target: node2,
                 targetPort: 'in',
+                image: '/src/images/sql-join-icon.png'
             },
             {
                 id: Engine.UID(),
                 source: node1,
                 sourcePort: 'in',
                 target: node3,
-                targetPort: 'in'
+                targetPort: 'in',
+                image: '/src/images/sql-join-outer-icon.png'
             },
             {
                 id: Engine.UID(),
                 source: node2,
                 sourcePort: 'in',
                 target: node3,
-                targetPort: 'in'
+                targetPort: 'in',
+                image: '/src/images/sql-join-left-icon.png'
             }
         ]);
 

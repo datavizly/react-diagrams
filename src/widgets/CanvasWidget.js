@@ -1,6 +1,7 @@
 var React = require("react");
 var SVGWidget = require("./SVGWidget");
 var NodeView = require("./NodeViewWidget");
+var RelationViewWidget = require("./RelationViewWidget");
 var _ = require("lodash");
 /**
  * @author Dylan Vorster
@@ -91,7 +92,7 @@ module.exports = React.createClass({
                     onMouseMove: function (event) {
 
                         //move the node
-                        if (this.state.selectedModel && this.engine.nodeMovable) {
+                        if (this.state.selectedModel && this.props.engine.nodeMovable) {
                             this.state.selectedModel.x = this.state.initialObjectX + ((event.pageX - this.state.initialX) / (this.props.engine.state.zoom / 100));
                             this.state.selectedModel.y = this.state.initialObjectY + ((event.pageY - this.state.initialY) / (this.props.engine.state.zoom / 100));
                             this.props.engine.repaintNodes([this.state.selectedModel]);
@@ -107,7 +108,7 @@ module.exports = React.createClass({
                         }
 
                         //move the canvas
-                        else if (this.state.initialObjectX !== null && this.engine.canvasMovable) {
+                        else if (this.state.initialObjectX !== null && this.props.engine.canvasMovable) {
                             this.props.engine.setOffset(
                                 this.state.initialObjectX + ((event.pageX - this.state.initialX) / (this.props.engine.state.zoom / 100)),
                                 this.state.initialObjectY + ((event.pageY - this.state.initialY) / (this.props.engine.state.zoom / 100))
@@ -242,8 +243,8 @@ module.exports = React.createClass({
                         });
                     }.bind(this), engine: this.props.engine
                 }),
-                React.createElement(NodeView, {engine: this.props.engine})
-            )
-        );
+                React.createElement(NodeView, {engine: this.props.engine}),
+                this.props.engine.isTableRelation ? React.createElement(RelationViewWidget, {engine: this.props.engine}) : null
+            ));
     }
 });
