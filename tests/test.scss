@@ -1,3 +1,5 @@
+@import "../src/sass.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -15,4 +17,11 @@ html, body {
   display: flex;
 }
 
-@import "../src/sass.scss";
+.storm-flow-canvas .port {
+  background: none;
+}
+
+.storm-flow-canvas .port:hover, .storm-flow-canvas .port.selected {
+  background: #E7E7E7;
+}
+

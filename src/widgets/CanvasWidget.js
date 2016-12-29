@@ -81,7 +81,7 @@ module.exports = React.createClass({
                     onMouseMove: function (event) {
 
                         //move the node
-                        if (this.state.selectedModel) {
+                        if (this.state.selectedModel && this.engine.nodeMovable) {
                             this.state.selectedModel.x = this.state.initialObjectX + ((event.pageX - this.state.initialX) / (this.props.engine.state.zoom / 100));
                             this.state.selectedModel.y = this.state.initialObjectY + ((event.pageY - this.state.initialY) / (this.props.engine.state.zoom / 100));
                             this.props.engine.repaintNodes([this.state.selectedModel]);
@@ -97,7 +97,7 @@ module.exports = React.createClass({
                         }
 
                         //move the canvas
-                        else if (this.state.initialObjectX !== null) {
+                        else if (this.state.initialObjectX !== null && this.engine.canvasMovable) {
                             this.props.engine.setOffset(
                                 this.state.initialObjectX + ((event.pageX - this.state.initialX) / (this.props.engine.state.zoom / 100)),
                                 this.state.initialObjectY + ((event.pageY - this.state.initialY) / (this.props.engine.state.zoom / 100))
@@ -197,7 +197,6 @@ module.exports = React.createClass({
                                         this.state.selectedLink.targetPort = element.dataset.name;
 
                                         //两个 node 之间只允许一个link
-                                        console.log(111);
                                         if (this.props.engine.singleLink) {
                                             let link = this.props.engine.getExistLinkBySourceAndTarget(this.state.selectedLink.id, this.state.selectedLink.source, this.state.selectedLink.target);
                                             if (link && link.id != this.state.selectedLink.id) {

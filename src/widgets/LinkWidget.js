@@ -70,7 +70,7 @@ module.exports = React.createClass({
 
     generateLink: function (extraProps) {
         var Bottom = React.DOM.path(_.merge({
-            className: this.state.selected ? 'selected' : '',
+            // className: this.state.selected ? 'selected' : '',
             strokeWidth: this.props.width,
             stroke: 'black'
         }, extraProps));
@@ -128,7 +128,9 @@ module.exports = React.createClass({
                 onMouseDown: function (event) {
                     var point = this.props.engine.getRelativeMousePoint(event);
                     point.id = this.props.engine.UID();
-                    this.props.link.points.splice(1, 0, point);
+                    if (this.props.engine.linkPointerAble) {
+                        this.props.link.points.splice(1, 0, point);
+                    }
                     this.forceUpdate();
                     this.props.newPoint(point.id);
                 }.bind(this),
@@ -164,10 +166,12 @@ module.exports = React.createClass({
                     onMouseDown: function (event) {
                         var point = this.props.engine.getRelativeMousePoint(event);
                         point.id = this.props.engine.UID();
-                        if (this.props.engine.singlePointer) {
-                            this.props.link.points[1] = point;
-                        } else {
-                            this.props.link.points.splice(index + 1, 0, point);
+                        if (this.props.engine.linkPointerAble) {
+                            if (this.props.engine.singlePointer) {
+                                this.props.link.points[1] = point;
+                            } else {
+                                this.props.link.points.splice(index + 1, 0, point);
+                            }
                         }
                         // this.props.link.points.splice(index + 1, 0, point);
                         this.forceUpdate();
