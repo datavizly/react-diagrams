@@ -44,8 +44,18 @@ module.exports = React.createClass({
             //check for any links that dont have points
             _.forEach(this.props.engine.state.links, function (link) {
                 if (link.points.length === 0) {
-                    link.points.push(this.props.engine.getPortCenter(this.props.engine.getNode(link.source), link.sourcePort));
-                    link.points.push(this.props.engine.getPortCenter(this.props.engine.getNode(link.target), link.targetPort));
+                    if (link.source !== null && link.target !== null) {
+                        link.points = this.props.engine.getLinkSourceAndTargetPointer(this.props.engine.getNode(link.source), this.props.engine.getNode(link.target));
+                    } else {
+                        if (link.source !== null) {
+                            link.points[0] = this.props.engine.getPortCenter(this.props.engine.getNode(link.source), link.sourcePort);
+                        }
+                        if (link.target !== null) {
+                            link.points[link.points.length - 1] = this.props.engine.getPortCenter(this.props.engine.getNode(link.target), link.targetPort);
+                        }
+                    }
+                    // link.points.push(this.props.engine.getPortCenter(this.props.engine.getNode(link.source), link.sourcePort));
+                    // link.points.push(this.props.engine.getPortCenter(this.props.engine.getNode(link.target), link.targetPort));
                     this.forceUpdate();
                 }
             }.bind(this));

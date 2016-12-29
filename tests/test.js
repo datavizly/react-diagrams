@@ -47,21 +47,7 @@ window.onload = function () {
                 id: Engine.UID(),
                 source: node2,
                 sourcePort: 'in',
-                target: node4,
-                targetPort: 'in'
-            },
-            {
-                id: Engine.UID(),
-                source: node4,
-                sourcePort: 'in',
-                target: node5,
-                targetPort: 'in'
-            },
-            {
-                id: Engine.UID(),
-                source: node2,
-                sourcePort: 'out',
-                target: node5,
+                target: node3,
                 targetPort: 'in'
             }
         ]);
@@ -97,43 +83,17 @@ window.onload = function () {
                 data: {
                     color: 'rgb(85, 85, 85)',
                     background: '#E7E7E7',
-                    name: "Remove User",
+                    name: "Remove User 1",
                     inVariables: ['in']
                 },
-                x: 250 + offsetX,
+                x: 350 + offsetX,
                 y: 150 + offsetY
-            },
-            {
-                id: node4,
-                type: 'action',
-                data: {
-                    color: 'rgb(85, 85, 85)',
-                    background: '#E7E7E7',
-                    name: "Remove User",
-                    inVariables: ['in'],
-                },
-                x: 500 + offsetX,
-                y: 150 + offsetY
-            },
-            {
-                id: node5,
-                type: 'action',
-                data: {
-                    color: 'rgb(85, 85, 85)',
-                    background: '#E7E7E7',
-                    name: "Complex Action 2",
-                    inVariables: ['in']
-                },
-                x: 800 + offsetX,
-                y: 100 + offsetY
-            },
+            }
         ]);
     }
 
     generateSet(model, 0, 0);
 
-
-    console.log(22);
     Engine.registerNodeFactory({
         type: 'action',
         generateModel: function (model) {

@@ -117,6 +117,10 @@ module.exports = function (config) {
             });
         },
 
+        getNodeElement: function (node, port) {
+            return this.state.canvas.querySelector('.node[data-nodeid="' + node.id + '"]');
+        },
+
         getNodePortElement: function (node, port) {
             return this.state.canvas.querySelector('.port[data-name="' + port + '"][data-nodeid="' + node.id + '"]');
         },
@@ -164,6 +168,66 @@ module.exports = function (config) {
             //remove the node
             delete this.state.nodes[node.id];
             this.update();
+        },
+
+        getLinkSourceAndTargetPointer: function (sourceNode, targetNode) {
+            var sourceElement = this.getNodeElement(sourceNode);
+            var sourceRect = sourceElement.getBoundingClientRect();
+            var targetElement = this.getNodeElement(targetNode);
+            var targetRect = targetElement.getBoundingClientRect();
+
+            var sourceRel = this.getRelativePoint(sourceRect.left, sourceRect.top);
+            var targetRel = this.getRelativePoint(targetRect.left, targetRect.top);
+
+            var sourceLeftCenter = {
+                x: (sourceRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (sourceElement.offsetHeight / 2 + sourceRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var sourceRightCenter = {
+                x: (sourceElement.offsetWidth + sourceRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (sourceElement.offsetHeight / 2 + sourceRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var sourceTopCenter = {
+                x: (sourceElement.offsetWidth / 2 + sourceRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (sourceRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var sourceBottomCenter = {
+                x: (sourceElement.offsetWidth / 2 + sourceRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (sourceElement.offsetHeight + sourceRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+
+            var targetLeftCenter = {
+                x: (targetRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (targetElement.offsetHeight / 2 + targetRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var targetRightCenter = {
+                x: (targetElement.offsetWidth + targetRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (targetElement.offsetHeight / 2 + targetRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var targetTopCenter = {
+                x: (targetElement.offsetWidth / 2 + targetRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (targetRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+            var targetBottomCenter = {
+                x: (targetElement.offsetWidth / 2 + targetRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
+                y: (targetElement.offsetHeight + targetRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
+            };
+
+            if (sourceRightCenter.x < targetLeftCenter.x) {
+                return [sourceRightCenter, targetLeftCenter]
+            }
+
+            if (sourceLeftCenter.x > targetRightCenter.x) {
+                return [sourceLeftCenter, targetRightCenter];
+            }
+
+            if (sourceBottomCenter.y < targetTopCenter.y) {
+                return [sourceBottomCenter, targetTopCenter];
+            }
+
+            if (sourceTopCenter.y > targetBottomCenter.y) {
+                return [sourceTopCenter, targetBottomCenter]
+            }
         },
 
         getPortCenter: function (node, port) {
