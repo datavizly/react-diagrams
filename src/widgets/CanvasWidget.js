@@ -213,6 +213,9 @@ module.exports = React.createClass({
                                             if (link && link.id != this.state.selectedLink.id) {
                                                 this.props.engine.removeLink(this.state.selectedLink);
                                             } else {
+                                                if (this.props.engine.onLinkAdd) {
+                                                    this.props.engine.onLinkAdd(this.state.selectedLink);
+                                                }
                                                 this.props.engine.repaintNodes([nodeObject]);
                                             }
                                         } else {

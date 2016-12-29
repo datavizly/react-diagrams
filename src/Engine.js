@@ -50,6 +50,25 @@ module.exports = function (config) {
             this.fireEvent({type: 'repaint'});
         },
 
+        forceUpdate(){
+            //check for any links that dont have points
+            _.forEach(this.state.links, function (link) {
+                if (link.points.length === 0) {
+                    if (link.source !== null && link.target !== null) {
+                        link.points = this.getLinkSourceAndTargetPointer(this.getNode(link.source), this.getNode(link.target));
+                    } else {
+                        if (link.source !== null) {
+                            link.points[0] = this.getPortCenter(this.getNode(link.source), link.sourcePort);
+                        }
+                        if (link.target !== null) {
+                            link.points[link.points.length - 1] = this.getPortCenter(this.getNode(link.target), link.targetPort);
+                        }
+                    }
+                    this.update();
+                }
+            }.bind(this));
+        },
+
         getRelativeMousePoint: function (event) {
             var point = this.getRelativePoint(event.pageX, event.pageY);
             return {

@@ -16,7 +16,6 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        console.log('RelationViewWidget');
         return (
             React.DOM.div({
                     className: 'node-view',
