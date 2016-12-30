@@ -33,7 +33,7 @@ module.exports = React.createClass({
                     className: 'basic-node',
                     style: {background: this.props.background, color: this.props.color}
                 },
-                React.DOM.div({className: 'ports'},
+                React.DOM.div({className: 'ports', style: {paddingRight: 12}},
                     React.DOM.div({className: 'in'}, (Array.isArray(this.props.inPorts) ? this.props.inPorts : [this.props.inPorts]).map(function (port) {
                         var portName = "";
                         if (typeof port === 'object') {
@@ -53,8 +53,9 @@ module.exports = React.createClass({
                     React.DOM.div({
                         onClick: this.props.removeAction,
                         style: {
-                            lineHeight: '40px', fontSize: '26px', height: 40, minWidth: 30,
-                            // background: 'rgba(255, 255, 255, 0.1)'
+                            float: 'right',
+                            paddingTop: 7,
+                            fontSize: '26px'
                         },
                         dangerouslySetInnerHTML: {
                             __html: '×'

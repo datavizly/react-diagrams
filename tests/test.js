@@ -1,7 +1,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 var Canvas = require("../src/widgets/CanvasWidget");
-var BasicNodeWidget = require("../src/widgets/BasicNodeWidget");
 var TableRelationNodeWidget = require("../src/widgets/TableRelationNodeWidget");
 var layerToNodeAndLink = require('./layerToNodeAndLink').GenerateNodeAndLink;
 var layer = require('./layerToNodeAndLink').layer;
@@ -14,7 +13,7 @@ window.onload = function () {
         singleLink: true,
         linkPointerAble: false,
         singlePointer: true,
-        nodeMovable: true,
+        nodeMovable: false,
         pointerMovable: false,
         canvasMovable: false,
         isTableRelation: true,
