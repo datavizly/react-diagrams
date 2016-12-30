@@ -67,8 +67,13 @@ module.exports = function (config) {
 
                     }
                 }.bind(this));
+                let nodes = [];
+                Object.keys(this.state.nodes).map((id) => {
+                    nodes.push(this.state.nodes[id]);
+                });
+                this.repaintNodes(nodes);
                 this.update();
-            }.bind(this), 20)
+            }.bind(this), 100)
 
         },
 
