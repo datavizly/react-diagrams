@@ -17,6 +17,9 @@ window.onload = function () {
         pointerMovable: false,
         canvasMovable: false,
         isTableRelation: true,
+        onLinkClick: function (link) {
+            console.log(link);
+        },
         onLinkAdd: function (link) {
             let join = {
                 "sourceResourceId": link.source,

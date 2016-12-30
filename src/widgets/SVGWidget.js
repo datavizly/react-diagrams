@@ -18,6 +18,7 @@ module.exports = React.createClass({
         };
     },
     render: function () {
+        var self = this;
         return (
             React.DOM.svg(
                 {

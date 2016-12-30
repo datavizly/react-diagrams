@@ -196,8 +196,13 @@ module.exports = React.createClass({
         return (
             React.DOM.g({
                 onClick: () => {
-                    if (!this.props.link.source || !this.props.link.target)
+                    if (!this.props.link.source || !this.props.link.target) {
                         this.props.engine.removeLink(this.props.link);
+                        return;
+                    }
+                    if (this.props.engine.onLinkClick) {
+                        this.props.engine.onLinkClick(this.props.link);
+                    }
                 }
             }, paths)
         );

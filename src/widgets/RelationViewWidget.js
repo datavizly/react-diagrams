@@ -44,6 +44,11 @@ module.exports = React.createClass({
                     return React.createElement('div', {
                         className: 'node',
                         key: link.id,
+                        onClick: () => {
+                            if (this.props.engine.onLinkClick) {
+                                this.props.engine.onLinkClick(link);
+                            }
+                        },
                         style: {
                             top: (link.points[0].y + link.points[1].y) / 2 - 16,
                             left: (link.points[0].x + link.points[1].x) / 2 - 16,
