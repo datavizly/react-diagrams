@@ -216,8 +216,8 @@ module.exports = function (config) {
             // var targetElement = this.getNodeElement(targetNode);
             // var targetRect = targetElement.getBoundingClientRect();
 
-            var sourceElement = {offsetWidth: 201, offsetHeight: 45};
-            var targetElement = {offsetWidth: 201, offsetHeight: 45};
+            var sourceElement = {offsetWidth: 197, offsetHeight: 45};
+            var targetElement = {offsetWidth: 197, offsetHeight: 45};
 
 
             // var sourceRel = this.getRelativePoint(sourceRect.left, sourceRect.top);

@@ -12,8 +12,8 @@ html, body {
 
 #eid {
   width: 100%;
-  height: 100%;
-  background: rgb(60, 60, 60);
+  height: 400px;
+  background: #f2f2f2;
   display: flex;
 }
 
@@ -23,5 +23,13 @@ html, body {
 
 .storm-flow-canvas .port:hover, .storm-flow-canvas .port.selected {
   background: none;
+}
+
+.storm-flow-canvas .basic-node {
+  border: none;
+}
+
+.storm-flow-canvas path {
+  stroke: #E7E7E7;
 }
 
