@@ -62,5 +62,14 @@ window.onload = function () {
     Engine.loadModel(model);
 
 
-    ReactDOM.render(React.createElement(Canvas, {engine: Engine}), document.getElementById('eid'));
+    ReactDOM.render(React.createElement(Canvas,
+        {
+            engine: Engine,
+            style: {
+                width: '100%',
+                height: 400,
+                background: '#f2f2f2',
+                display: 'flex'
+            }
+        }), document.getElementById('eid'));
 };

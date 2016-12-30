@@ -83,6 +83,7 @@ module.exports = React.createClass({
             React.DOM.div({
                     ref: 'canvas',
                     className: 'storm-flow-canvas',
+                    style: this.props.style,
                     onWheel: function (event) {
                         if (this.props.engine.zoomOnWheel) {
                             this.props.engine.setZoom(this.props.engine.state.zoom + (event.deltaY / 60));
