@@ -18,7 +18,7 @@ module.exports = React.createClass({
             inPorts: [],
             outPorts: [],
             color: 'rgb(50,50,50)',
-            removeAction: function () {
+            removeAction: function (id) {
                 console.log("remove node");
             }
         };
@@ -45,13 +45,12 @@ module.exports = React.createClass({
                             React.createElement(TableRelationPortWidget, {
                                 name: portName,
                                 title: this.props.name,
-                                node: this.props.node,
-                                removeAction: this.props.removeAction
+                                node: this.props.node
                             })
                         );
                     }.bind(this))),
                     React.DOM.div({
-                        onClick: this.props.removeAction,
+                        onClick: () => this.props.removeAction(this.props.node.id),
                         style: {
                             float: 'right',
                             paddingTop: 7,

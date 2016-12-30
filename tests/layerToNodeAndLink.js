@@ -610,3 +610,25 @@ var _layer = {
 
 module.exports.GenerateNodeAndLink = GenerateNodeAndLinkByLayer;
 module.exports.layer = _layer;
+module.exports.removeResource = function (layer, id) {
+    let resources = layer.schema.resources;
+    resources.map((resource, index) => {
+        if (resource.id == id) {
+            resources.splice(index, 1);
+        }
+    });
+    layer.schema.resources = resources;
+
+    let joins = layer.schema.joins;
+    for (var i = 0; i < joins.length; i++) {
+        let value = joins[i];
+        if (value.sourceResourceId == id || value.targetResourceId == id) {
+            joins.splice(i, 1);
+            i--;
+        }
+    }
+
+    layer.schema.joins = joins;
+
+    return layer;
+};

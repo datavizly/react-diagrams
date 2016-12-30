@@ -34,7 +34,10 @@ module.exports = React.createClass({
                 },
                 React.DOM.div({className: 'title'},
                     React.DOM.div({className: 'name'}, this.props.name),
-                    React.DOM.div({className: 'fa fa-close', onClick: this.props.removeAction})
+                    React.DOM.div({
+                        className: 'fa fa-close',
+                        onClick: () => this.props.removeAction(this.props.node.id)
+                    })
                 ),
                 React.DOM.div({className: 'ports'},
                     React.DOM.div({className: 'in'}, (Array.isArray(this.props.inPorts) ? this.props.inPorts : [this.props.inPorts]).map(function (port) {

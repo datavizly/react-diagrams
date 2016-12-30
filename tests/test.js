@@ -3,6 +3,7 @@ var ReactDOM = require("react-dom");
 var Canvas = require("../src/widgets/CanvasWidget");
 var TableRelationNodeWidget = require("../src/widgets/TableRelationNodeWidget");
 var layerToNodeAndLink = require('./layerToNodeAndLink').GenerateNodeAndLink;
+var layerRemoveResource = require('./layerToNodeAndLink').removeResource;
 var layer = require('./layerToNodeAndLink').layer;
 require("./test.scss");
 
@@ -20,6 +21,12 @@ window.onload = function () {
         onLinkClick: function (link) {
             console.log(link);
         },
+        onNodeRemove: function (id) {
+            layer = layerRemoveResource(layer, id);
+            let model = layerToNodeAndLink(layer);
+            Engine.loadModel(model);
+            Engine.forceUpdate();
+        },
         onLinkAdd: function (link) {
             let join = {
                 "sourceResourceId": link.source,
@@ -36,8 +43,10 @@ window.onload = function () {
         type: 'action',
         generateModel: function (model) {
             return React.createElement(TableRelationNodeWidget, {
-                removeAction: function () {
-                    Engine.removeNode(model);
+                removeAction: function (id) {
+                    if (Engine.onNodeRemove) {
+                        Engine.onNodeRemove(id);
+                    }
                 },
                 background: model.data.background,
                 color: model.data.color,
