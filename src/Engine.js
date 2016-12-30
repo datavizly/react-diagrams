@@ -51,22 +51,25 @@ module.exports = function (config) {
         },
 
         forceUpdate(){
-            //check for any links that dont have points
-            _.forEach(this.state.links, function (link) {
-                if (link.points.length === 0) {
-                    if (link.source !== null && link.target !== null) {
-                        link.points = this.getLinkSourceAndTargetPointer(this.getNode(link.source), this.getNode(link.target));
-                    } else {
-                        if (link.source !== null) {
-                            link.points[0] = this.getPortCenter(this.getNode(link.source), link.sourcePort);
+            setTimeout(function () {
+                _.forEach(this.state.links, function (link) {
+                    if (link.points.length === 0) {
+                        if (link.source !== null && link.target !== null) {
+                            link.points = this.getLinkSourceAndTargetPointer(this.getNode(link.source), this.getNode(link.target));
+                        } else {
+                            if (link.source !== null) {
+                                link.points[0] = this.getPortCenter(this.getNode(link.source), link.sourcePort);
+                            }
+                            if (link.target !== null) {
+                                link.points[link.points.length - 1] = this.getPortCenter(this.getNode(link.target), link.targetPort);
+                            }
                         }
-                        if (link.target !== null) {
-                            link.points[link.points.length - 1] = this.getPortCenter(this.getNode(link.target), link.targetPort);
-                        }
+
                     }
-                    this.update();
-                }
-            }.bind(this));
+                }.bind(this));
+                this.update();
+            }.bind(this), 20)
+
         },
 
         getRelativeMousePoint: function (event) {
@@ -111,7 +114,20 @@ module.exports = function (config) {
 
         loadModel: function (model) {
             this.state.links = {};
-            this.state.node = {};
+            this.state.nodes = {};
+
+            model.nodes.forEach(function (node) {
+                this.addNode(node);
+            }.bind(this));
+
+            model.links.forEach(function (link) {
+                this.addLink(link);
+            }.bind(this));
+        },
+
+        resetModel: function (model) {
+            this.state.links = {};
+            this.state.nodes = {};
 
             model.nodes.forEach(function (node) {
                 this.addNode(node);
@@ -190,13 +206,19 @@ module.exports = function (config) {
         },
 
         getLinkSourceAndTargetPointer: function (sourceNode, targetNode) {
-            var sourceElement = this.getNodeElement(sourceNode);
-            var sourceRect = sourceElement.getBoundingClientRect();
-            var targetElement = this.getNodeElement(targetNode);
-            var targetRect = targetElement.getBoundingClientRect();
+            // var sourceElement = this.getNodeElement(sourceNode);
+            // var sourceRect = sourceElement.getBoundingClientRect();
+            // var targetElement = this.getNodeElement(targetNode);
+            // var targetRect = targetElement.getBoundingClientRect();
 
-            var sourceRel = this.getRelativePoint(sourceRect.left, sourceRect.top);
-            var targetRel = this.getRelativePoint(targetRect.left, targetRect.top);
+            var sourceElement = {offsetWidth: 204, offsetHeight: 45};
+            var targetElement = {offsetWidth: 204, offsetHeight: 45};
+
+
+            // var sourceRel = this.getRelativePoint(sourceRect.left, sourceRect.top);
+            // var targetRel = this.getRelativePoint(targetRect.left, targetRect.top);
+            var sourceRel = {x: sourceNode.x, y: sourceNode.y};
+            var targetRel = {x: targetNode.x, y: targetNode.y};
 
             var sourceLeftCenter = {
                 x: (sourceRel.x / (this.state.zoom / 100.0)) - (this.state.offsetX),
@@ -232,19 +254,19 @@ module.exports = function (config) {
                 y: (targetElement.offsetHeight + targetRel.y / (this.state.zoom / 100.0)) - (this.state.offsetY)
             };
 
-            if (sourceRightCenter.x < targetLeftCenter.x) {
+            if (sourceRightCenter.x <= targetLeftCenter.x) {
                 return [sourceRightCenter, targetLeftCenter]
             }
 
-            if (sourceLeftCenter.x > targetRightCenter.x) {
+            if (sourceLeftCenter.x >= targetRightCenter.x) {
                 return [sourceLeftCenter, targetRightCenter];
             }
 
-            if (sourceBottomCenter.y < targetTopCenter.y) {
+            if (sourceBottomCenter.y <= targetTopCenter.y) {
                 return [sourceBottomCenter, targetTopCenter];
             }
 
-            if (sourceTopCenter.y > targetBottomCenter.y) {
+            if (sourceTopCenter.y >= targetBottomCenter.y) {
                 return [sourceTopCenter, targetBottomCenter]
             }
         },

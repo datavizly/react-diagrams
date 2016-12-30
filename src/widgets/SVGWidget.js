@@ -28,7 +28,7 @@ module.exports = React.createClass({
                     }
                 },
                 _.map(this.props.engine.state.links, function (link) {
-                    if (link.points.length < 2) {
+                    if (!link.points || link.points.length < 2) {
                         return;
                     } else {
                         if (link.source !== null && link.target !== null) {
