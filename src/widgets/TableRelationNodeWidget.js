@@ -19,15 +19,11 @@ module.exports = React.createClass({
             outPorts: [],
             color: 'rgb(50,50,50)',
             removeAction: function (id) {
-                console.log("remove node");
             }
         };
     },
 
     render: function () {
-
-        var props = {};
-
         return (
             React.DOM.div({
                     className: 'basic-node',
@@ -50,10 +46,11 @@ module.exports = React.createClass({
                         );
                     }.bind(this))),
                     React.DOM.div({
+                        className:'node-action',
                         onClick: () => this.props.removeAction(this.props.node.id),
                         style: {
                             float: 'right',
-                            paddingTop: 7,
+                            paddingTop: 3,
                             fontSize: '26px'
                         },
                         dangerouslySetInnerHTML: {
