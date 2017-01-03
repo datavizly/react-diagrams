@@ -18,7 +18,6 @@ module.exports = React.createClass({
             outPorts: [],
             color: 'rgb(50,50,50)',
             removeAction: function () {
-                console.log("remove node");
             }
         };
     },

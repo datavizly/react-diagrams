@@ -14,7 +14,7 @@ window.onload = function () {
         singleLink: true,
         linkPointerAble: false,
         singlePointer: true,
-        nodeMovable: false,
+        nodeMovable: true,
         pointerMovable: false,
         canvasMovable: false,
         isTableRelation: true,
@@ -24,8 +24,8 @@ window.onload = function () {
         onNodeRemove: function (id) {
             layer = layerRemoveResource(layer, id);
             let model = layerToNodeAndLink(layer);
-            Engine.loadModel(model);
-            Engine.forceUpdate();
+            Engine.reloadModel(model);
+            // Engine.forceUpdate();
         },
         onLinkAdd: function (link) {
             let join = {
@@ -34,8 +34,8 @@ window.onload = function () {
             };
             layer.schema.joins.push(join);
             let model = layerToNodeAndLink(layer);
-            Engine.loadModel(model);
-            Engine.forceUpdate();
+            Engine.reloadModel(model);
+            // Engine.forceUpdate();
         }
     });
 

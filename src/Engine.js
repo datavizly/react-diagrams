@@ -50,33 +50,6 @@ module.exports = function (config) {
             this.fireEvent({type: 'repaint'});
         },
 
-        forceUpdate(){
-            setTimeout(function () {
-                _.forEach(this.state.links, function (link) {
-                    if (link.points.length === 0) {
-                        if (link.source !== null && link.target !== null) {
-                            link.points = this.getLinkSourceAndTargetPointer(this.getNode(link.source), this.getNode(link.target));
-                        } else {
-                            if (link.source !== null) {
-                                link.points[0] = this.getPortCenter(this.getNode(link.source), link.sourcePort);
-                            }
-                            if (link.target !== null) {
-                                link.points[link.points.length - 1] = this.getPortCenter(this.getNode(link.target), link.targetPort);
-                            }
-                        }
-
-                    }
-                }.bind(this));
-                let nodes = [];
-                Object.keys(this.state.nodes).map((id) => {
-                    nodes.push(this.state.nodes[id]);
-                });
-                this.repaintNodes(nodes);
-                this.update();
-            }.bind(this), 100)
-
-        },
-
         getRelativeMousePoint: function (event) {
             var point = this.getRelativePoint(event.pageX, event.pageY);
             return {
@@ -128,6 +101,50 @@ module.exports = function (config) {
             model.links.forEach(function (link) {
                 this.addLink(link);
             }.bind(this));
+        },
+
+        reloadModel: function (model) {
+            let preNodes = this.state.nodes;
+            let preLinks = this.state.links;
+            this.state.links = {};
+            this.state.nodes = {};
+
+            this.state.updatingNodes = {};
+            this.state.updatingLinks = {};
+
+            model.links.forEach(function (link) {
+                this.addLink(link);
+            }.bind(this));
+
+            model.nodes.forEach(function (node) {
+                this.addNode(node);
+                if (!preNodes[node.id] || preNodes[node.id].x != node.x || preNodes[node.id].y != node.y) {
+                    //store the updating node is's
+                    this.state.updatingNodes[node.id] = node;
+                    this.getNodeLinks(node).forEach(function (link) {
+                        this.state.updatingLinks[link.id] = link;
+                    }.bind(this));
+                }
+            }.bind(this));
+
+            _.forEach(this.state.links, function (link) {
+                if (link.points.length === 0) {
+                    if (link.source !== null && link.target !== null) {
+                        link.points = this.getLinkSourceAndTargetPointer(this.getNode(link.source), this.getNode(link.target));
+                    } else {
+                        if (link.source !== null) {
+                            link.points[0] = this.getPortCenter(this.getNode(link.source), link.sourcePort);
+                        }
+                        if (link.target !== null) {
+                            link.points[link.points.length - 1] = this.getPortCenter(this.getNode(link.target), link.targetPort);
+                        }
+                    }
+
+                }
+            }.bind(this));
+
+            this.update();
+
         },
 
         resetModel: function (model) {
