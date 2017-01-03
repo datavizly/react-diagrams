@@ -70,7 +70,7 @@ module.exports = React.createClass({
 
     generateLink: function (extraProps) {
         var Bottom = React.DOM.path(_.merge({
-            // className: this.state.selected ? 'selected' : '',
+            className: this.state.selected ? 'selected' : '',
             strokeWidth: this.props.width,
             stroke: 'black'
         }, extraProps));
