@@ -1,3 +1,4 @@
+var React = require("react");
 function GenerateNodeAndLinkByLayer(layer) {
 
     layer = layer || _layer;
@@ -36,7 +37,20 @@ function GenerateNodeAndLinkByLayer(layer) {
             sourcePort: 'in',
             target: join.targetResourceId,
             targetPort: 'in',
-            image: '/src/images/sql-join-icon.png'
+            relationComp: React.createClass({
+                render: function () {
+                    return React.createElement('div', {
+                        style: {
+                            fontSize: '12px',
+                            paddingTop: 10,
+                            paddingLeft: 4
+                        },
+                        dangerouslySetInnerHTML: {
+                            __html: 'Left'
+                        }
+                    })
+                }
+            })
         }
     });
 

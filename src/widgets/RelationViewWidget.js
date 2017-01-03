@@ -53,10 +53,10 @@ module.exports = React.createClass({
                             top: (link.points[0].y + link.points[1].y) / 2 - 16,
                             left: (link.points[0].x + link.points[1].x) / 2 - 16,
                             height: 32,
-                            width: 32,
-                            backgroundImage: `url(${link.image})`
+                            width: 32
+                            // backgroundImage: `url(${link.image})`
                         }
-                    });
+                    }, React.createElement(link.relationComp));
                 }.bind(this))
             )
         );
