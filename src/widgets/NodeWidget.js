@@ -28,8 +28,17 @@ module.exports = React.createClass({
     render: function () {
         return (
             React.DOM.div({
+                    onMouseLeave: function () {
+                        if (!this.props.engine.nodeMovable)
+                            this.props.engine.setSelectedNode(null);
+                    }.bind(this),
+                    onMouseEnter: function () {
+                        if (!this.props.engine.nodeMovable)
+                            this.props.engine.setSelectedNode(this.props.node);
+                    }.bind(this),
                     onMouseDown: function () {
-                        this.props.engine.setSelectedNode(this.props.node);
+                        if (this.props.engine.nodeMovable)
+                            this.props.engine.setSelectedNode(this.props.node);
                     }.bind(this),
                     'data-nodeid': this.props.node.id,
                     className: 'node' + (this.props.engine.state.selectedNode

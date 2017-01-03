@@ -46,7 +46,7 @@ module.exports = React.createClass({
                         );
                     }.bind(this))),
                     React.DOM.div({
-                        className:'node-action',
+                        className: 'node-action',
                         onClick: () => this.props.removeAction(this.props.node.id),
                         style: {
                             float: 'right',
