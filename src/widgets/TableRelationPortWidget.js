@@ -18,7 +18,7 @@ module.exports = React.createClass({
         return (
             React.DOM.div({
                 style: {
-                    lineHeight: '40px', fontSize: '14px', paddingLeft: 15, height: 40, minWidth: 170
+                    lineHeight: '24px', fontSize: '14px', paddingLeft: 15, height: 24, minWidth: 170
                 },
                 onMouseEnter: function () {
                     this.setState({selected: true});

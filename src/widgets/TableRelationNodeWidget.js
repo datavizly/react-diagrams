@@ -37,7 +37,7 @@ module.exports = React.createClass({
                         } else {
                             portName = port;
                         }
-                        return React.DOM.div({className: 'in-port', key: portName, style: {width: 170, height: 40,}},
+                        return React.DOM.div({className: 'in-port', key: portName, style: {width: 170, height: 24,}},
                             React.createElement(TableRelationPortWidget, {
                                 name: portName,
                                 title: this.props.name,
@@ -51,7 +51,7 @@ module.exports = React.createClass({
                         style: {
                             float: 'right',
                             paddingTop: 3,
-                            fontSize: '26px'
+                            fontSize: '18px'
                         },
                         dangerouslySetInnerHTML: {
                             __html: '×'
